@@ -54,11 +54,13 @@ exports.findAllDesserts = function(req, res) {
 exports.Images= async(req,res)=>{
 
   
-    Produit.fetchImage(function(err, produit) {
+    Produit.fetchImage(req.params.id_prod,function(err, produit) {
+      
+           
             if (err){
               res.send(err);
             }else{
-            
+
               res.send(produit);
             }  
           });

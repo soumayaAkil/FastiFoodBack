@@ -5,7 +5,7 @@ router.get('/GetAllProduits', ProduitController.findAll);
 router.get('/GetAllRepas', ProduitController.findAllRepas);
 router.get('/GetAllBoissons', ProduitController.findAllBoissons);
 router.get('/GetAllDesserts', ProduitController.findAllDesserts);
-router.get('/images',ProduitController.Images);
+router.get('/images/:id_prod',ProduitController.Images);
 module.exports=router;  
 
 

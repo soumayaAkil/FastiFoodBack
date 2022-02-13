@@ -14,7 +14,7 @@ var dbConn=require('../../Config/db');
 
 //Gett all data
 Produit.findAll=function(result){
-    dbConn.query("Select * from produit", function(err,res){
+    dbConn.query("Select id_prod,nomProd,id_restau,id_cat from produit", function(err,res){
         if(err){
             console.log("error in fetching data :", err)
             result(err,null);
@@ -28,7 +28,7 @@ Produit.findAll=function(result){
 
 //Gett data where cat was repa
 Produit.findAllRepas=function(result){
-    dbConn.query("Select * from produit WHERE id_cat = 2", function(err,res){
+    dbConn.query("Select id_prod,nomProd,id_restau,id_cat from produit WHERE id_cat = 2", function(err,res){
         if(err){
             console.log("error in fetching data :", err)
             result(err,null);
@@ -42,7 +42,7 @@ Produit.findAllRepas=function(result){
 
 //Gett data where cat was boisson
 Produit.findAllBoissons=function(result){
-    dbConn.query("Select * from produit WHERE id_cat = 1", function(err,res){
+    dbConn.query("Select id_prod,nomProd,id_restau,id_cat from produit WHERE id_cat = 1", function(err,res){
         if(err){
             console.log("error in fetching data :", err)
             result(err,null);
@@ -55,7 +55,7 @@ Produit.findAllBoissons=function(result){
 };
 //Gett data where cat was dessert
 Produit.findAllDesserts=function(result){
-    dbConn.query("Select * from produit WHERE id_cat = 3", function(err,res){
+    dbConn.query("Select id_prod,nomProd,id_restau,id_cat from produit WHERE id_cat = 3", function(err,res){
         if(err){
             console.log("error in fetching data :", err)
             result(err,null);
@@ -83,14 +83,14 @@ Produit.find=function(id_prod,result){
 
 };
 
-Produit.fetchImage=function(result){
-    dbConn.query('SELECT imageProd FROM produit ', function(err,res){
+Produit.fetchImage=function(id_prod,result){
+    dbConn.query('SELECT imageProd FROM produit WHERE id_prod = ?', [id_prod],function(err,res){
         if(err){
             console.log("error in fetching data :", err)
             result(err,null);
         }else{
-            console.log("Etudiants :", res);
-            result( res);
+            console.log("Etudiants :", res[0].imageProd);
+            result(res[0].imageProd);
         }
     });
   

@@ -26,6 +26,48 @@ Produit.findAll=function(result){
 
 };
 
+//Gett data where cat was repa
+Produit.findAllRepas=function(result){
+    dbConn.query("Select * from produit WHERE id_cat = 2", function(err,res){
+        if(err){
+            console.log("error in fetching data :", err)
+            result(err,null);
+        }else{
+            console.log("Etudiants :", res);
+            result( res);
+        }
+    })
+
+};
+
+//Gett data where cat was boisson
+Produit.findAllBoissons=function(result){
+    dbConn.query("Select * from produit WHERE id_cat = 1", function(err,res){
+        if(err){
+            console.log("error in fetching data :", err)
+            result(err,null);
+        }else{
+            console.log("Etudiants :", res);
+            result( res);
+        }
+    })
+
+};
+//Gett data where cat was dessert
+Produit.findAllDesserts=function(result){
+    dbConn.query("Select * from produit WHERE id_cat = 3", function(err,res){
+        if(err){
+            console.log("error in fetching data :", err)
+            result(err,null);
+        }else{
+            console.log("Etudiants :", res);
+            result( res);
+        }
+    })
+
+};
+
+
 //find Produit
 Produit.find=function(id_prod,result){
     dbConn.query("Select * from produit WHERE id_prod = ?", [id_prod], 
@@ -41,7 +83,18 @@ Produit.find=function(id_prod,result){
 
 };
 
-
+Produit.fetchImage=function(result){
+    dbConn.query('SELECT imageProd FROM produit ', function(err,res){
+        if(err){
+            console.log("error in fetching data :", err)
+            result(err,null);
+        }else{
+            console.log("Etudiants :", res);
+            result( res);
+        }
+    });
+  
+   }
 
 module.exports=Produit;
     /*

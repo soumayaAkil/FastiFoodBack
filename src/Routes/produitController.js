@@ -2,7 +2,10 @@ const express = require('express')
 const router = express.Router()
 const ProduitController=require("../Controllers/produitController");
 router.get('/GetAllProduits', ProduitController.findAll);
-
+router.get('/GetAllRepas', ProduitController.findAllRepas);
+router.get('/GetAllBoissons', ProduitController.findAllBoissons);
+router.get('/GetAllDesserts', ProduitController.findAllDesserts);
+router.get('/images',ProduitController.Images);
 module.exports=router;  
 
 

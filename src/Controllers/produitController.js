@@ -1,5 +1,7 @@
 const Produit= require("../Models/produitModel")
 
+
+// find all products
 exports.findAll = function(req, res) {
     Produit.findAll(function(err, produit) {
     if (err){
@@ -11,6 +13,58 @@ exports.findAll = function(req, res) {
   });
 };
 
+
+
+// find all products where thier cat was repa
+exports.findAllRepas = function(req, res) {
+    Produit.findAllRepas(function(err, produit) {
+    if (err){
+      res.send(err);
+    }else{
+    
+      res.send(produit);
+    }  
+  });
+};
+
+// find all products  where thier cat was boisson
+exports.findAllBoissons = function(req, res) {
+    Produit.findAllBoissons(function(err, produit) {
+    if (err){
+      res.send(err);
+    }else{
+    
+      res.send(produit);
+    }  
+  });
+};
+
+// find all products  where thier cat was dessert
+exports.findAllDesserts = function(req, res) {
+    Produit.findAllDesserts(function(err, produit) {
+    if (err){
+      res.send(err);
+    }else{
+    
+      res.send(produit);
+    }  
+  });
+};
+
+exports.Images= async(req,res)=>{
+
+  
+    Produit.fetchImage(function(err, produit) {
+            if (err){
+              res.send(err);
+            }else{
+            
+              res.send(produit);
+            }  
+          });
+       
+      
+    };
 
 /*
 const produit = require('../models/produit');

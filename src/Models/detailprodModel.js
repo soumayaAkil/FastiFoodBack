@@ -13,7 +13,7 @@ var dbConn=require('../../Config/db');
 
 //Gett all data
 Detailprod.findAll=function(result){
-    dbConn.query("Select * from dedtailprod", function(err,res){
+    dbConn.query("Select * from detailprod", function(err,res){
         if(err){
             console.log("error in fetching data :", err)
             result(err,null);
@@ -26,7 +26,7 @@ Detailprod.findAll=function(result){
 };
 //find Detailprod
 Detailprod.find=function(id_detailProd,result){
-    dbConn.query("Select * from dedtailprod WHERE id_detailProd = ?", [id_detailProd], 
+    dbConn.query("Select * from detailprod WHERE id_detailProd = ?", [id_detailProd], 
     function(err,res){
         if(err){
             console.log("error in fetching data :", err)
@@ -38,6 +38,33 @@ Detailprod.find=function(id_detailProd,result){
     })
 
 };
+//find Detailprod by id_prod
+Detailprod.findDetailByProd=function(id_prod,result){
+    dbConn.query("Select * from detailprod WHERE id_prod = ?", [id_prod], 
+    function(err,res){
+        if(err){
+            console.log("error in fetching data :", err)
+            result(err,null);
+        }else{
+           
+            result( res);
+        }
+    })
 
+};
+//find price by id_unit
+Detailprod.findPrice=function(id_prod,id_unite,result){
+    dbConn.query("Select prix from detailprod WHERE id_prod = ? and id_unite = ?", [id_prod,id_unite], 
+    function(err,res){
+        if(err){
+            console.log("error in fetching data :", err)
+            result(err,null);
+        }else{
+           
+            result( res);
+        }
+    })
+
+};
 
 module.exports=Detailprod;

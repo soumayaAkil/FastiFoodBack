@@ -1,51 +1,44 @@
-var dbConn=require('../../Config/db');
+const db = require('../../config/database');
 
 
- var Commande=function(commande){
-     this.id_com=commande.id_com;
-     this.designation=commande.adresse;
-     this.logo=commande.id_client;
-     this.logo=commande.somme_com;
-     this.logo=commande.reponse;
-     this.logo=commande.status;
-     this.logo=commande.mode_payement;
 
- };
-
-
-//Gett all data
-Commande.findAll=function(result){
-    dbConn.query("Select * from commande", function(err,res){
-        if(err){
-            console.log("error in fetching data :", err)
-            result(err,null);
-        }else{
-
-            result( res);
-        }
-    })
-
-};
-//find Commande
-Commande.find=function(id_com,result){
-    dbConn.query("Select * from commande WHERE id_com = ?", [id_com], 
-    function(err,res){
-        if(err){
-            console.log("error in fetching data :", err)
-            result(err,null);
-        }else{
-           
-            result( res);
-        }
-    })
-
-};
-
-
-module.exports=Commande;
+module.exports = class Commande {
+    constructor(commande){
+    this.id_com=commande.id_com;
+    this.somme_com=commande.somme_com;
+    this.reponse=commande.reponse;
+    this.id_restau=commande.id_restau;
+    this.id_fact=commande.id_fact;
+    }  
+    static findRestau (id_restau){
+        return db.execute('SELECT * FROM restaurant where id_restau=?' ,[id_restau]);
+    } 
+    static findbyidFact (id_fact){
+        return db.execute('SELECT * FROM commande where id_fact=?' ,[id_fact]);
+    } 
+    static findbyidFRep (id_fact,reponse){
+        return db.execute('SELECT * FROM commande where id_fact=? and reponse=?' ,[id_fact,reponse]);
+    } 
  
+    static updaterep (somme_com,reponse,id_restau,id_com){
+        return db.execute('UPDATE facteur SET  somme_com=? ,reponse=? ,id_restau=? ,  where id_com=?' ,
+        [somme_com,reponse,id_restau,id_com]);
+    } 
+    
 
-/*
+
+
+}
+
+/* var Commande=function(commande){
+     this.id_com=commande.id_com;
+     this.adresse=commande.adresse;
+     this.id_client=commande.id_client;
+     this.somme_com=commande.somme_com;
+     this.reponse=commande.reponse;
+     this.status=commande.status;
+     this.mode_payement=commande.mode_payement;
+     this.date=commande.date;
     static postP (type_production,status,date_transaction,somme_prix,id){
         return db.execute('INSERT INTO production (type_production,status,date_transaction,somme_prix,id) VALUES (?,?,?,?,?)',
         [type_production,status,date_transaction,somme_prix,id]);

@@ -33,7 +33,7 @@ Produit.findAllRepas=function(result){
             console.log("error in fetching data :", err)
             result(err,null);
         }else{
-            console.log("Etudiants :", res);
+            console.log("repas :", res);
             result( res);
         }
     })

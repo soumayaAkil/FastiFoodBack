@@ -24,35 +24,20 @@ Categorie.findAll=function(result){
 
 };
 
-//find categorie by id
-Categorie.find=function(id_cat,result){
-    dbConn.query("Select * from unite WHERE id_cat = ?", [id_cat], 
-    function(err,res){
+//Gett data by id_restau
+Categorie.findCatByIdRestau=function(id_restau,result){
+    dbConn.query("Select * from categorie WHERE id_restau = ?", [id_restau], function(err,res){
         if(err){
             console.log("error in fetching data :", err)
             result(err,null);
         }else{
-           
-            result( res);
+                console.log("gegddvdfv",res);
+                 result( res);
         }
     })
 
 };
 
-
-//find categorie by id restau
-Categorie.find=function(id_restau,result){
-    dbConn.query("Select * from unite WHERE id_restau = ?", [id_restau], 
-    function(err,res){
-        if(err){
-            console.log("error in fetching data :", err)
-            result(err,null);
-        }else{
-                result( res);
-        }
-    })
-
-};
 
 
 

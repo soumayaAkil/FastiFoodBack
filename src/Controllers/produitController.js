@@ -1,5 +1,5 @@
 const Produit= require("../Models/produitModel")
-
+const DetailProd= require("../Models/detailprodModel")
 
 // find all products
 exports.findAll = function(req, res) {
@@ -54,7 +54,7 @@ exports.findAllDesserts = function(req, res) {
 exports.Images= async(req,res)=>{
 
   
-    Produit.fetchImage(req.params.id_prod,function(err, produit) {
+    Produit.fetchImage(req.query.id_prod,function(err, produit) {
       
            
             if (err){
@@ -67,6 +67,46 @@ exports.Images= async(req,res)=>{
        
       
     };
+
+
+    // postProd 
+    exports.postProd= async(req,res)=>{
+
+     
+      Produit.postProd(req.query.nomProd,req.query.id_resatu,id_cat,function(err, produit) {
+              if (err){
+                res.json({
+                  succes:false,
+                  message: 'erreur lors de l ajout',
+                       })  
+              }else{
+  
+                res.json({
+                  succes:true,
+                  message: 'ajouter avec succès',
+                       })  
+              }  
+            });
+         
+      DetailProd.postDetailProd(req.query.prixProd,req.query.id_unite,function(err, produit) {
+        if (err){
+          res.json({
+            succes:false,
+            message: 'erreur lors de l ajout',
+                 })  
+        }else{
+
+          res.json({
+            succes:true,
+            message: 'ajouter avec succès',
+                 })  
+        }  
+      });
+   
+        
+      };
+
+      
 
 /*
 const produit = require('../models/produit');

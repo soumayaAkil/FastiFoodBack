@@ -11,6 +11,21 @@ var dbConn=require('../../Config/db');
 
  };
 
+ //post Produit
+Produit.postProd=function(nomProd,id_restau,id_cat,result){
+    dbConn.query("INSERT INTO produit (nomProd,id_restau,id_cat) VALUES (?,?,?)", [nomProd,id_restau,id_cat], 
+    function(err,res){
+        if(err){
+            console.log("error in fetching data :", err)
+            result(err,null);
+        }else{
+           
+            result( res);
+        }
+    })
+
+};
+
 
 //Gett all data
 Produit.findAll=function(result){

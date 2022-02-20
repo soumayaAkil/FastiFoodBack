@@ -11,6 +11,21 @@ exports.findAll = function(req, res) {
   });
 };
 
+// find categorie by id restau 
+exports.findCatByIdRestau = function(req, res) {
+  Categorie.findCatByIdRestau(req.query.id_restau,function(err, categorie) {
+    if (err){
+      console.log(req.query.id_restau);
+      res.send(err);
+    }else{
+      console.log("catttt ",categorie);
+      res.send(categorie);
+    }  
+  });
+};
+
+
+
 /*
 const categorie = require('../models/categorieModel');
 const{ validationResult } = require('express-validator');

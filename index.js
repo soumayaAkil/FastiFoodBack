@@ -10,10 +10,13 @@ const payelineRoute = require("./src/Routes/payelineController");
 const produitRoute = require("./src/Routes/produitController");
 const restauRoute = require("./src/Routes/restaurantRoute");
 const uniteRoute = require("./src/Routes/uniteRoute");
+const factRoute = require("./src/Routes/facteurRoute");
+
 var multer, storage, path, crypto;
 multer = require('multer')
 path = require('path');
 crypto = require('crypto')
+
 
 var dbConn= require('./Config/db')
 // create express app
@@ -40,6 +43,7 @@ app.use('/detailCommande',detailcomRoute);
 app.use("/detailProduit",detailprodRoute);
 app.use("/payeline",payelineRoute);
 app.use("/restaurant",restauRoute);
+app.use('/facteur',factRoute);
 
 
 app.use('/uploads',express.static('./images'));

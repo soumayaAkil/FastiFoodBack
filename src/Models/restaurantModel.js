@@ -38,5 +38,7 @@ Restaurant.find=function(id_restau,result){
 };
 
 
+
+
 module.exports=Restaurant;
  

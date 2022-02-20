@@ -1,15 +1,75 @@
-const Commande= require("../Models/commandeModel")
+const Commande= require("../Models/commandeModel");
+const Facteur = require("../Models/facteurModel");
+const Restaurant = require("../Models/restaurantModel");
 
-exports.findAll = function(req, res) {
-  Commande.findAll(function(err, commande) {
-    if (err){
-      res.send(err);
-    }else{
+
+
+
+
+exports.findAllbyIdFact = async(req, res,next) => {
+  try {
+    const [putResponse] = await  Commande.findbyidFact(req.body.id_fact);
+    res.status(200).json(putResponse[0]);
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }};
+  exports.findAllbyIdClRep = async(req, res,next) => {
+    try {
+      const  [tabFact] = await Facteur.findbyidClient(req.body.id_client);
     
-      res.send(commande);
-    }  
-  });
-};
+  let TAB=[];
+    for(var j=0;j<tabFact.length;j++)
+  {
+    let f=tabFact[j].id_fact;
+    console.log(f);
+    const tabCom = await   Commande.findbyidFRep(f,req.body.reponse);
+    for(var i=0;i<tabCom.length;i++)
+    {
+    reponse=tabCom[0][0].reponse;
+    somme_com=tabCom[0][0].somme_com;
+    id_restau=tabCom[0][0].id_restau;
+    const rest =await Commande.findRestau(id_restau);
+    console.log([rest]);
+    designation=rest[0][0].designation;
+    logo=rest[0][0].logo;
+    let json = {
+                  somme_com:somme_com,
+                  reponse:`${reponse}`,
+                  designation: `${designation}`,
+                  logo:`${logo}`,
+               
+                  
+                
+    };
+    
+    TAB.push(json);
+  }
+  }
+
+  res.status(200).json(TAB); 
+    } catch (err) {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    }};
+
+exports.putrep = async (req, res, next) => {
+  try {
+    const putResponse = await  Commande.updaterep(req.body.somme_com, req.body.reponse ,req.body.id_restau,req.body.id_com);
+    res.status(200).json(putResponse);
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }};
+
+
+
 
 
 

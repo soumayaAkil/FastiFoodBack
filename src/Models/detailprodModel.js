@@ -12,7 +12,7 @@ var dbConn=require('../../Config/db');
 // Post detaill
 
 //post Produit
-Produit.postDetailProd=function(prixProd,id_prod,id_unite,result){
+Detailprod.postDetailProd=function(prixProd,id_prod,id_unite,result){
     dbConn.query("INSERT INTO detailprod (prixProd,id_prod,id_unite) VALUES (?,?,?)", [prixProd,id_prod,id_unite], 
     function(err,res){
         if(err){

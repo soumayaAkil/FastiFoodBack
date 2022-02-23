@@ -1,164 +1,136 @@
+const express= require('express');
 const Produit= require("../Models/produitModel")
-const DetailProd= require("../Models/detailprodModel")
+const Detailprod= require("../Models/detailProdModel")
 
-// find all products
-exports.findAll = function(req, res) {
-    Produit.findAll(function(err, produit) {
-    if (err){
-      res.send(err);
-    }else{
+//get all products
+exports.findAll= async (req,res,next)=>{
     
-      res.send(produit);
-    }  
-  });
-};
+    const ress= await Produit.fetchAll();
+    rows = ress[0];
+    if(rows.length !== 0)
+    {
+        res.send(rows);
 
-
+    } else 
+     {
+        res.json({
+            succes: false,
+            produit: 'aucun produit',
+        });
+     }
+    }
 
 // find all products where thier cat was repa
-exports.findAllRepas = function(req, res) {
-    Produit.findAllRepas(function(err, produit) {
-    if (err){
-      res.send(err);
-    }else{
-    
-      res.send(produit);
-    }  
-  });
-};
+
+exports.findAllRepas= async (req,res,next)=>{
+    const ress= await Produit.findAllRepas();
+    rows = ress[0];
+    if(rows.length !== 0)
+    {
+        res.send(rows);
+
+    } else 
+     {
+        res.json({
+            succes: false,
+            produit: 'aucun Repas',
+        });
+     } 
+}
+
 
 // find all products  where thier cat was boisson
-exports.findAllBoissons = function(req, res) {
-    Produit.findAllBoissons(function(err, produit) {
-    if (err){
-      res.send(err);
-    }else{
-    
-      res.send(produit);
-    }  
-  });
-};
 
-// find all products  where thier cat was dessert
-exports.findAllDesserts = function(req, res) {
-    Produit.findAllDesserts(function(err, produit) {
-    if (err){
-      res.send(err);
-    }else{
-    
-      res.send(produit);
-    }  
-  });
-};
+exports.findAllBoissons= async (req,res,next)=>{
+    const ress= await Produit.findAllBoissons();
+    console.log(ress);
+    rows = ress[0];
+    if(rows.length !== 0)
+    {
+        res.send(rows);
 
-exports.Images= async(req,res)=>{
+    } else 
+     {
+        res.json({
+            succes: false,
+            produit: 'aucun Boissons',
+        });
+     } 
+}
 
-  
-    Produit.fetchImage(req.query.id_prod,function(err, produit) {
-      
-           
-            if (err){
-              res.send(err);
-            }else{
+// find all products  where thier cat was boisson
 
-              res.send(produit);
-            }  
-          });
-       
-      
-    };
+exports.findAllDesserts= async (req,res,next)=>{
+    const ress= await Produit.findAllDesserts();
+    rows = ress[0];
+    if(rows.length !== 0)
+    {
+         res.send(rows);
 
+    } else 
+     {
+        res.json({
+            succes: false,
+            produit: 'aucun Desserts',
+        });
+     } 
+}
 
-    // postProd 
-    exports.postProd= async(req,res)=>{
+// fetch image
 
-     
-      Produit.postProd(req.query.nomProd,req.query.id_resatu,id_cat,function(err, produit) {
-              if (err){
-                res.json({
-                  succes:false,
-                  message: 'erreur lors de l ajout',
-                       })  
-              }else{
-  
-                res.json({
-                  succes:true,
-                  message: 'ajouter avec succès',
-                       })  
-              }  
-            });
-         
-      DetailProd.postDetailProd(req.query.prixProd,req.query.id_unite,function(err, produit) {
-        if (err){
-          res.json({
-            succes:false,
-            message: 'erreur lors de l ajout',
-                 })  
-        }else{
+exports.Images= async (req,res,next)=>{
+    const id_prod = req.query.id_prod;
+    const data = await Produit.fetchImage(id_prod);
+    const results = data[0];
+    console.log("pictureee",results[0].imageProd)
+      if (data[0].length !== 0){
+          var image=results[0].imageProd;
+        res.send(image);
 
-          res.json({
-            succes:true,
-            message: 'ajouter avec succès',
-                 })  
+        }
+        else if(data[0].length == 0) { 
+            res.json({succes: false,
+                message: 'image introuvable',
+                   });
         }  
-      });
-   
-        
-      };
+}
 
+
+
+
+// insert an question
+exports.post = async (req,res,next)=>{
+
+    let nomProd= req.query.nomProd;
+    let id_restau= req.query.id_restau;
+    let id_cat= req.query.id_cat;
+    let prixProd= req.query.prixProd;
+    let id_unite =req.query.id_unite;
+
+    
+  console.log("ajout produit !!!");
+  console.log("iciiiiiiii ",nomProd,id_restau,id_cat,prixProd,id_unite);
+
+        const rest=await Produit.postProd(nomProd,id_restau,id_cat);
       
-
-/*
-const produit = require('../models/produit');
-const{ validationResult } = require('express-validator');
-
- 
-exports.getAllproduits = async(req, res, next) => {
-try {
-const [allproduits] = await produit.fetchAll();
-res.status(200).json(allproduits);
-
-}catch(err) {
-    if(!err.statuscode){
-        err.statuscode = 500
-    }
-    next(err);
-
-    }
- 
-};
-
-exports.Images= async(req,res,next)=>{
-
-    try {
-      const [allfemmes] = await produit.fetchImage();
-      console.log(allfemmes);
-      res.status(200).json(allfemmes);
-      
-      }catch(err) {
-          if(!err.statuscode){
-              err.statuscode = 500
-          }
-          next(err);
-      
-          }
        
-      };
-exports.getPord = async(req, res, next) => {
-    const nom_P = req.body.nom_P;
-    try {
-    const prod= await produit.fetchProduit(nom_P);
-   const storedProd= prod[0][0];
-   res.status(200).json(storedProd);
 
-    }catch(err) {
-        if(!err.statuscode){
-            err.statuscode = 500
-        }
-        next(err);
-    
-        }
+        const ress= await Produit.getid();
+        rows = ress[0];
+        id_prod=rows[0].id_prod;
+        console.log("max id",id_prod);
+
+        
+
+
+        const restt=await Detailprod.postDetailProd(prixProd,id_prod,id_unite);
+
+        res.send("Ajouter avec succée");
+
+    }
+
      
-    };
+           
+            
     
-*/
+    

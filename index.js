@@ -20,6 +20,9 @@ multer = require('multer')
 path = require('path');
 crypto = require('crypto')
 
+const factRoutee = require("./src/Routes/FacComRoute");
+const comR = require("./src/Routes/commandesRRoute");
+const comP = require("./src/Routes/produitscomRoute");
 
 var dbConn= require('./Config/db')
 // create express app
@@ -35,7 +38,7 @@ app.use(bodyParser.json())
 // define a root route
 
 app.use(express.json())
-app.use(cors({origin:"http://localhost:4200"}));
+app.use(cors({origin:"http://localhost:8081"}));
 
 app.use('/categoie',categorieRoute);
 app.use('/produit',produitRoute);
@@ -47,9 +50,11 @@ app.use("/detailProduit",detailprodRoute);
 app.use("/payeline",payelineRoute);
 app.use("/restaurant",restauRoute);
 app.use('/facteur',factRoute);
+app.use("/facture",factRoutee);
+app.use("/commandesR",comR);
+app.use("/commandesP",comP);
 
-
-app.use('/uploads',express.static('./images'));
+app.use('/uploads',express.static('images'));
 
 
 // pictureeeee

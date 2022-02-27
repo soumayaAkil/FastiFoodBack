@@ -102,9 +102,9 @@ console.log(TAB);
     const tabCom = await   Commande.findbyidFRep(f,req.body.reponse);
     for(var i=0;i<tabCom.length;i++)
     {
-    reponse=tabCom[0][0].reponse;
-    somme_com=tabCom[0][0].somme_com;
-    id_restau=tabCom[0][0].id_restau;
+    reponse=tabCom[0][j].reponse;
+    somme_com=tabCom[0][j].somme_com;
+    id_restau=tabCom[0][j].id_restau;
     const rest =await Commande.findRestau(id_restau);
   
     designation=rest[0][0].designation;

@@ -10,8 +10,17 @@ module.exports = class Commande {
     this.id_restau=commande.id_restau;
     this.id_fact=commande.id_fact;
     }  
+    static anulerComM(id_com){
+        return db.execute('DELETE FROM commande WHERE id_com=?',[id_com]);
+    }
     static findRestau (id_restau){
         return db.execute('SELECT * FROM restaurant where id_restau=?' ,[id_restau]);
+    } 
+    static findbyidRestau (id_restau){
+        return db.execute('SELECT * FROM commande where id_restau=?' ,[id_restau]);
+    } 
+    static findbyidCom (id_com){
+        return db.execute('SELECT * FROM commande where id_com=?' ,[id_com]);
     } 
     static findbyidFact (id_fact){
         return db.execute('SELECT * FROM commande where id_fact=?' ,[id_fact]);
@@ -20,9 +29,9 @@ module.exports = class Commande {
         return db.execute('SELECT * FROM commande where id_fact=? and reponse=?' ,[id_fact,reponse]);
     } 
  
-    static updaterep (somme_com,reponse,id_restau,id_com){
-        return db.execute('UPDATE facteur SET  somme_com=? ,reponse=? ,id_restau=? ,  where id_com=?' ,
-        [somme_com,reponse,id_restau,id_com]);
+    static updaterep (commande,reponse){
+        return db.execute('UPDATE commande SET  somme_com=? ,reponse=? ,id_restau=?,id_fact=? where id_com=?' ,
+        [commande.somme_com,reponse,commande.id_restau,commande.id_fact,commande.id_com]);
     } 
     
 

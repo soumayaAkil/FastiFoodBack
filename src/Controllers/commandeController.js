@@ -8,14 +8,89 @@ const Restaurant = require("../Models/restaurantModel");
 
 exports.findAllbyIdFact = async(req, res,next) => {
   try {
-    const [putResponse] = await  Commande.findbyidFact(req.body.id_fact);
-    res.status(200).json(putResponse[0]);
+    const tabCom = await  Commande.findbyidFact(req.query.id_fact);
+  
+
+    let TAB=[];
+    for(var j=0;j<tabCom.length;j++)
+  {console.log(tabCom[0][j])
+    reponse=tabCom[0][j].reponse;
+    somme_com=tabCom[0][j].somme_com;
+    id_com=tabCom[0][j].id_com;
+    id_restau=tabCom[0][j].id_restau;
+    id_fact=tabCom[0][j].id_fact;
+    console.log(id_restau);
+    let rest =await Commande.findRestau(id_restau);
+    
+    designation=rest[0][0].designation;
+    logo=rest[0][0].logo;
+    let json = {
+      id_com:id_com,
+      somme_com:somme_com,
+      reponse:`${reponse}`,
+      nomRestau: `${designation}`,
+      logo:`${logo}`,
+      id_fact:id_fact
+   
+      
+    }
+
+
+TAB.push(json);
+};
+console.log(TAB);
+    res.status(200).json(TAB);
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
     }
     next(err);
   }};
+  
+  exports.findAllbyIdRestau = async(req, res,next) => {
+    try {
+      id_restau=req.query.id_restau;
+      const tabCom = await  Commande.findbyidRestau(req.query.id_restau);
+    
+      let TAB=[];
+      for(var j=0;j<tabCom.length;j++)
+    {
+      reponse=tabCom[0][j].reponse;
+      somme_com=tabCom[0][j].somme_com;
+      id_com=tabCom[0][j].id_com;
+      
+      id_fact=tabCom[0][j].id_fact;
+      let rest =await Facteur.findbyidfact(id_fact);
+      mode_payement=rest[0][0].mode_payement;
+      adresse=rest[0][0].adresse;
+      id_client=rest[0][0].id_client;
+      date=rest[0][0].date;
+      stat=rest[0][0].status;
+      let json = {
+        id_com:id_com,
+        somme_com:somme_com,
+        reponse:`${reponse}`,
+        id_client:id_client,
+        adresse: `${adresse}`,
+        mode_payement:`${mode_payement}`,
+        date:`${date}`,
+        status:`${stat}`
+     
+        
+      }
+  
+  
+  TAB.push(json);
+  };
+  console.log(TAB);
+      res.status(200).json(TAB);
+    } catch (err) {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    }};
+    
   exports.findAllbyIdClRep = async(req, res,next) => {
     try {
       const  [tabFact] = await Facteur.findbyidClient(req.body.id_client);
@@ -24,7 +99,6 @@ exports.findAllbyIdFact = async(req, res,next) => {
     for(var j=0;j<tabFact.length;j++)
   {
     let f=tabFact[j].id_fact;
-    console.log(f);
     const tabCom = await   Commande.findbyidFRep(f,req.body.reponse);
     for(var i=0;i<tabCom.length;i++)
     {
@@ -32,7 +106,7 @@ exports.findAllbyIdFact = async(req, res,next) => {
     somme_com=tabCom[0][0].somme_com;
     id_restau=tabCom[0][0].id_restau;
     const rest =await Commande.findRestau(id_restau);
-    console.log([rest]);
+  
     designation=rest[0][0].designation;
     logo=rest[0][0].logo;
     let json = {
@@ -59,7 +133,16 @@ exports.findAllbyIdFact = async(req, res,next) => {
 
 exports.putrep = async (req, res, next) => {
   try {
-    const putResponse = await  Commande.updaterep(req.body.somme_com, req.body.reponse ,req.body.id_restau,req.body.id_com);
+    console.log("jjjjjjjj")
+    reponse=req.query.reponse;
+    com=req.query.id_com;
+    console.log("ffffffffff")
+    console.log(reponse)
+    
+    const Rep = await  Commande.findbyidCom(com,reponse);
+    commande=rep[0];
+    console.log(commande)
+    const putResponse = await  Commande.updaterep(commande,reponse);
     res.status(200).json(putResponse);
   } catch (err) {
     if (!err.statusCode) {
@@ -67,6 +150,23 @@ exports.putrep = async (req, res, next) => {
     }
     next(err);
   }};
+
+exports.anulerCom = async(req,res,next) =>{
+  try{
+    id_com=req.query.id_com;
+    
+    const Rep = await  Commande.anulerComM(id_com);
+
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }};
+
+
+
+
 
 
 

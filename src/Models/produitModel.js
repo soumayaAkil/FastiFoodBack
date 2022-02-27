@@ -19,6 +19,11 @@ module.exports = class Produit{
      
     }
 
+    static findProdByIdCat(id_cat){
+        return db.execute (
+            'Select id_prod,nomProd,id_restau,id_cat FROM produit WHERE id_cat = ?',[id_cat]);
+     
+    }
     static findAllRepas(){
         return db.execute (
             'Select id_prod,nomProd,id_restau,id_cat FROM produit WHERE id_cat = 2');

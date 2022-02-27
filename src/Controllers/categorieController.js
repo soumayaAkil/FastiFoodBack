@@ -1,79 +1,44 @@
+const express= require('express');
 const Categorie= require("../Models/categorieModel")
 
-exports.findAll = function(req, res) {
-  Categorie.findAll(function(err, categorie) {
-    if (err){
-      res.send(err);
-    }else{
-    
-      res.send(categorie);
-    }  
-  });
-};
+//get all cat by id restau
+exports.findCatByIdRestau= async (req,res,next)=>{
 
-// find categorie by id restau 
-exports.findCatByIdRestau = function(req, res) {
-  Categorie.findCatByIdRestau(req.query.id_restau,function(err, categorie) {
-    if (err){
-      console.log(req.query.id_restau);
-      res.send(err);
-    }else{
-      console.log("catttt ",categorie);
-      res.send(categorie);
-    }  
-  });
-};
+    id_restau=req.query.id_restau;
+    console.log("id_resatu",id_restau);
+    const ress= await Categorie.findCatByIdRestau(id_restau);
+    rows = ress[0];
+    console.log("resultt   : ",rows);
+    if(rows.length !== 0)
+    {
+        res.send(rows);
 
-
-
-/*
-const categorie = require('../models/categorieModel');
-const{ validationResult } = require('express-validator');
-
- 
-exports.getAllunites = async(req, res, next) => {
-try {
-const [allcats] = await categorie.fetchAll();
-res.status(200).json(allcats);
-
-}catch(err) {
-    if(!err.statuscode){
-        err.statuscode = 500
+    } else 
+     {
+        res.json({
+            succes: false,
+            Categorie: 'aucune Categorie',
+        });
+     }
     }
-    next(err);
 
-    }
- 
-};
+    // fetch image
 
-exports.findCat=async(req,res,next)=>{
-   
-    const id_cat= req.body.nomCat;
-    try{
+exports.Images= async (req,res,next)=>{
+    const id_cat = req.query.id_cat;
+    const data = await Categorie.fetchImage(id_cat);
+    const results = data[0];
 
-       
-      const Cat =await categorie.find(id_cat);
-     
-      if (Cat[0].length !==1)
-      {  
-        const error =new Error('categorie  n\'existe pas');
-        error.statusCode=401;
-        throw error;
-      }else {
-        const storedCat =Cat[0][0];
-    
-        res.status(200).json(storedCat);
-      }
-      
-  }catch(err){
-        if(!err.statusCode){
-          err.statusCode =500;
+    console.log("pictureee",results[0].imageCat)
+      if (data[0].length !== 0){
+          
+          var image=results[0].imageCat;
+          res.send(image);
+
         }
-        next(err);
-      }
-    
-  };
-  
-  
-
-*/
+        else if(data[0].length == 0) { 
+            res.json({succes: false,
+                message: 'image introuvable',
+                   });
+        }  
+}

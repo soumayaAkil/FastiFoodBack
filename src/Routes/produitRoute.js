@@ -5,6 +5,7 @@ router.get('/GetAllProduits', ProduitController.findAll);
 router.get('/GetAllRepas', ProduitController.findAllRepas);
 router.get('/GetAllBoissons', ProduitController.findAllBoissons);
 router.get('/GetAllDesserts', ProduitController.findAllDesserts);
+router.get('/GetProdByIdCat/:id_cat',ProduitController.findProdByIdCat);
 router.get('/images/:id_prod',ProduitController.Images);
 router.post('/postProd',ProduitController.post);
 module.exports=router;  

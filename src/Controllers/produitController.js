@@ -20,6 +20,26 @@ exports.findAll= async (req,res,next)=>{
      }
     }
 
+    //get all products by id cat 
+
+exports.findProdByIdCat= async (req,res,next)=>{
+    id_cat=req.query.id_cat;
+    const ress= await Produit.findProdByIdCat(id_cat);
+    rows = ress[0];
+    if(rows.length !== 0)
+    {
+        res.send(rows);
+
+    } else 
+     {
+        res.json({
+            succes: false,
+            produit: 'aucun produit',
+        });
+     }
+    }
+
+
 // find all products where thier cat was repa
 
 exports.findAllRepas= async (req,res,next)=>{
@@ -82,7 +102,10 @@ exports.Images= async (req,res,next)=>{
     const id_prod = req.query.id_prod;
     const data = await Produit.fetchImage(id_prod);
     const results = data[0];
-    console.log("pictureee",results[0].imageProd)
+    console.log("id",id_prod);
+    console.log("data", data[0]);
+    console.log("hello",results[0]);
+    console.log("pictureee",results[0].imageProd);
       if (data[0].length !== 0){
           var image=results[0].imageProd;
         res.send(image);

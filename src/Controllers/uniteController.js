@@ -14,6 +14,18 @@ exports.findAll = function(req, res) {
   });
 };
 
+// find unit by id cat 
+exports.findUnitByIdCat = function(req, res) {
+  Unite.findUnitByIdCat(req.query.id_cat,function(err, unite) {
+    if (err){
+      res.send(err);
+    }else{
+      res.send(unite);
+    }  
+  });
+};
+
+
 /*
  
 exports.getAllunites = async(req, res, next) => {

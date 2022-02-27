@@ -37,6 +37,23 @@ Unite.find=function(id_unite,result){
 
 };
 
+//find unite by id cat
+Unite.findUnitByIdCat=function(id_cat,result){
+    dbConn.query("Select * from unite WHERE id_cat = ?", [id_cat], 
+    function(err,res){
+        if(err){
+            console.log("error in fetching data :", err)
+            result(err,null);
+        }else{
+           
+            result( res);
+        }
+    })
+
+};
+
+
+
 
 module.exports=Unite;
  

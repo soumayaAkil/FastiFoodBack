@@ -33,7 +33,7 @@ module.exports = class Commande {
         return db.execute('UPDATE commande SET  somme_com=? ,reponse=? ,id_restau=?,id_fact=? where id_com=?' ,
         [commande.somme_com,reponse,commande.id_restau,commande.id_fact,commande.id_com]);
     } 
-    
+   
 
 
 

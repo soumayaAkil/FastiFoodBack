@@ -154,21 +154,6 @@ exports.post = async (req,res,next)=>{
 
      
            
-    exports.findProdByIdProd= async (req,res,next)=>{
-        id_prod=req.query.id_prod;
-        const ress= await Produit.fetchProd(id_prod);
-        rows = ress[0];
-        if(rows.length !== 0)
-        {
-            res.send(rows);
-    
-        } else 
-         {
-            res.json({
-                succes: false,
-                produit: 'aucun produit',
-            });
-         }
-        }
+ 
     
     

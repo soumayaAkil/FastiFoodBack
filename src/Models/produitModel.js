@@ -66,12 +66,6 @@ module.exports = class Produit{
        
     }
 
-    static fetchProd(id_prod){
- 
-        return db.execute (
-            'SELECT * FROM produit WHERE id_prod = ?',[id_prod]);
-     
-    }
  
 
    

@@ -14,6 +14,7 @@ const produitRoute = require("./src/Routes/produitRoute");
 const restauRoute = require("./src/Routes/restaurantRoute");
 const uniteRoute = require("./src/Routes/uniteRoute");
 const factRoute = require("./src/Routes/facteurRoute");
+const cour = require("./src/Routes/coursierRoute");
 
 var multer, storage, path, crypto;
 multer = require('multer')
@@ -53,6 +54,7 @@ app.use('/facteur',factRoute);
 app.use("/facture",factRoutee);
 app.use("/commandesR",comR);
 app.use("/commandesP",comP);
+app.use("/coursier",cour);
 
 app.use('/uploads',express.static('images'));
 

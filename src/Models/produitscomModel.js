@@ -18,4 +18,5 @@ ProdCom.findAllproduitscommandes=function(id_com,result){
     })
 
 };
+
 module.exports=ProdCom;

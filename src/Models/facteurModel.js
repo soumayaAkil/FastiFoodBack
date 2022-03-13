@@ -24,6 +24,9 @@ module.exports = class Facteur {
         return db.execute('UPDATE facteur SET  adresse=? ,date=? ,id_client=? ,somme_fact=?, status=? ,mode_payement=? where id_fact=?' ,
         [fact.adresse,fact.date,fact.id_client,fact.somme_fact,status,fact.mode_payement,fact.id_fact]);
     } 
+    static deleteF(id_fact){
+        return db.execute('DELETE FROM facteur WHERE id_fact=?',[id_fact]);
+    }
   
 
 

@@ -63,7 +63,7 @@ exports.findAllRepas= async (req,res,next)=>{
 
 exports.findAllBoissons= async (req,res,next)=>{
     const ress= await Produit.findAllBoissons();
-    console.log(ress);
+    
     rows = ress[0];
     if(rows.length !== 0)
     {
@@ -77,6 +77,28 @@ exports.findAllBoissons= async (req,res,next)=>{
         });
      } 
 }
+
+// find restau by id prod
+
+exports.findNameRestByIdRest= async (req,res,next)=>{
+   
+    id_prod=req.query.id_prod;
+    
+    const prod= await Produit.findProd(id_prod);
+    id_restau=prod[0][0].id_restau;
+
+    console.log("id_res",id_restau);
+    const ress= await Produit.findNameRestByIdRest(id_restau);
+   
+    rows = ress[0][0];
+    console.log("nomm",rows);
+
+  
+        res.send(rows);
+
+    
+}
+
 
 // find all products  where thier cat was boisson
 
@@ -102,10 +124,7 @@ exports.Images= async (req,res,next)=>{
     const id_prod = req.query.id_prod;
     const data = await Produit.fetchImage(id_prod);
     const results = data[0];
-    console.log("id",id_prod);
-    console.log("data", data[0]);
-    console.log("hello",results[0]);
-    console.log("pictureee",results[0].imageProd);
+   
       if (data[0].length !== 0){
           var image=results[0].imageProd;
         res.send(image);
@@ -130,9 +149,7 @@ exports.post = async (req,res,next)=>{
     let prixProd= req.query.prixProd;
     let id_unite =req.query.id_unite;
 
-    
-  console.log("ajout produit !!!");
-  console.log("iciiiiiiii ",nomProd,id_restau,id_cat,prixProd,id_unite);
+
 
         const rest=await Produit.postProd(nomProd,id_restau,id_cat);
       
@@ -141,7 +158,7 @@ exports.post = async (req,res,next)=>{
         const ress= await Produit.getid();
         rows = ress[0];
         id_prod=rows[0].id_prod;
-        console.log("max id",id_prod);
+      
 
         
 
@@ -152,7 +169,25 @@ exports.post = async (req,res,next)=>{
 
     }
 
-     
+     // nom prod
+
+     exports.findProdByIdProd= async (req,res,next)=>{
+        id_prod=req.query.id_prod;
+        const ress= await Produit.fetchProd(id_prod);
+        rows = ress[0];
+       
+        if(rows.length !== 0)
+        {
+            res.send(rows[0]);
+    
+        } else 
+         {
+            res.json({
+                succes: false,
+                produit: 'aucun produit',
+            });
+         }
+        }
            
             
     

@@ -91,6 +91,105 @@ console.log(TAB);
       next(err);
     }};
     
+
+    // accept commande
+    exports.findbyidRestauAccept = async(req, res,next) => {
+      try {
+        id_restau=req.query.id_restau;
+        let reponse='accepte';
+        const tabCom = await  Commande.findbyidRestauAccept(req.query.id_restau,reponse);
+      
+        let TAB=[];
+        for(var j=0;j<tabCom[0].length;j++)
+      {
+        reponse=tabCom[0][j].reponse;
+        somme_com=tabCom[0][j].somme_com;
+        id_com=tabCom[0][j].id_com;
+        
+        id_fact=tabCom[0][j].id_fact;
+        let rest =await Facteur.findbyidfact(id_fact);
+        mode_payement=rest[0][0].mode_payement;
+        adresse=rest[0][0].adresse;
+        id_client=rest[0][0].id_client;
+        date=rest[0][0].date;
+        stat=rest[0][0].status;
+        let json = {
+          id_com:id_com,
+          adresse: `${adresse}`,
+          id_client:id_client,
+          somme_com:somme_com,
+          reponse:`${reponse}`,
+          status:`${stat}`,
+          date:`${date}`,
+          mode_payement:`${mode_payement}`  
+        }
+    
+    
+    TAB.push(json);
+    };
+    console.log(TAB);
+        res.status(200).json(TAB);
+      } catch (err) {
+        if (!err.statusCode) {
+          err.statusCode = 500;
+        }
+        next(err);
+      }};
+
+
+    //refuse commande 
+exports.findbyidRestauRefuse = async(req, res,next) => {
+    try {
+      id_restau=req.query.id_restau;
+      let reponse='refuse';
+      const tabCom = await  Commande.findbyidRestauRefuse(req.query.id_restau,reponse);
+
+      console.log("vakddddddd  ",tabCom);
+
+      let TAB=[];
+      for(var j=0;j<tabCom[0].length;j++)
+    {
+    
+      reponse=tabCom[0][j].reponse;
+      somme_com=tabCom[0][j].somme_com;
+      id_com=tabCom[0][j].id_com;
+      
+      id_fact=tabCom[0][j].id_fact;
+      let rest =await Facteur.findbyidfact(id_fact);
+      mode_payement=rest[0][0].mode_payement;
+      adresse=rest[0][0].adresse;
+      id_client=rest[0][0].id_client;
+      date=rest[0][0].date;
+      stat=rest[0][0].status;
+      let json = {
+          id_com:id_com,
+          adresse: `${adresse}`,
+          id_client:id_client,
+          somme_com:somme_com,
+          reponse:`${reponse}`,
+          status:`${stat}`,
+          date:`${date}`,
+          mode_payement:`${mode_payement}`
+     
+        
+      }
+  
+  
+  TAB.push(json);
+  };
+  console.log(TAB);
+      res.status(200).json(TAB);
+    } catch (err) {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    }};
+    
+  
+
+
+
   exports.findAllbyIdClRep = async(req, res,next) => {
     try {
       const  [tabFact] = await Facteur.findbyidClient(req.body.id_client);

@@ -15,6 +15,8 @@ const restauRoute = require("./src/Routes/restaurantRoute");
 const uniteRoute = require("./src/Routes/uniteRoute");
 const factRoute = require("./src/Routes/facteurRoute");
 
+const imageController = require("./src/Controllers/imageController")
+
 var multer, storage, path, crypto;
 multer = require('multer')
 path = require('path');
@@ -88,19 +90,9 @@ storage = multer.diskStorage({
   });
 
 
-// Post files
-app.post(
-  "/upload",
-  multer({
-    storage: storage
-  }).single('upload'), function(req, res) {
-    console.log(req.file);
-    console.log(req.body);
-    res.redirect("/images/" + req.file.filename);
-    console.log(req.file.filename);
-    return res.status(200).end();
-    
-  });
+
+
+app.post("/upload",multer({  storage: storage }).single('upload'),imageController.postPicture);
 
 app.get('/images/:upload', function (req, res){
   file = req.params.upload;
@@ -111,6 +103,7 @@ app.get('/images/:upload', function (req, res){
 
 });
 
+ 
 
 
 

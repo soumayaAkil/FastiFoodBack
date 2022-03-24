@@ -2,15 +2,17 @@ const { status } = require("express/lib/response");
 const Commande= require("../Models/commandeModel");
 const Facteur = require("../Models/facteurModel");
 const Restaurant = require("../Models/restaurantModel");
-
+const coursier =require("../../coursier/coursier.json");
 
 
 
 
 exports.findCoursier = async(req, res,next) => {
   try {
-    const [tabCom] = await  Facteur.findbyidfact(req.query.id_fact);
-  
+    console.log(req.params.id_fact)
+    const [tabCom] = await  Facteur.findbyidfact(req.params.id_fact);
+ /* 
+ //liason avec BD
 let coursier ={
     id_fact:14,
     status:"en cours",
@@ -21,17 +23,26 @@ let coursier ={
     imageCoursier:"c.jpg",
 
 }
+*/
     let TAB=[];
     for(var j=0;j<tabCom.length;j++)
   {
-    statuss=tabCom[j].status;
+    
     id_fact=tabCom[j].id_fact;
-console.log(tabCom[j].status)
-    id_coursier=coursier.id_coursier
-    nomCoursier=coursier.nomCoursier
-    prenomCoursier=coursier.prenomCoursier
-    numCoursier=coursier.numCoursier
-    imageCoursier=coursier.imageCoursier
+   
+     for(var l=0;l<coursier.length;l++)
+     {
+       if(coursier[l].id_fact==id_fact)
+       {
+        statuss=coursier[l].status;
+   Facteur.loadstatus(id_fact,statuss)
+  
+    
+    id_coursier=coursier[l].id_coursier
+    nomCoursier=coursier[l].nomCoursier
+    prenomCoursier=coursier[l].prenomCoursier
+    numCoursier=coursier[l].numCoursier
+    imageCoursier=coursier[l].imageCoursier
 
     let json = { 
       id_fact:id_fact,
@@ -40,20 +51,17 @@ console.log(tabCom[j].status)
        nomCoursier: `${nomCoursier}`,
        prenomCoursier:`${prenomCoursier}`,
        numCoursier: `${numCoursier}`,
-       imageCoursier: `${imageCoursier}`,
-   
-   
-      
+       imageCoursier: `${imageCoursier}`,   
     }
 
 
 TAB.push(json);
+}
+}
+
 };
 console.log(TAB);
     res.status(200).json(TAB);
   } catch (err) {
-    if (!err.statusCode) {
-      err.statusCode = 500;
-    }
-    next(err);
+    res.status(500).json('false');
   }};

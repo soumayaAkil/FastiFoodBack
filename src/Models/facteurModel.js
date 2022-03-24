@@ -27,6 +27,10 @@ module.exports = class Facteur {
     static deleteF(id_fact){
         return db.execute('DELETE FROM facteur WHERE id_fact=?',[id_fact]);
     }
+    static loadstatus (id_fact,status){
+        return db.execute('UPDATE facteur SET status=? where id_fact=?' ,
+        [status,id_fact]);
+    } 
   
 
 

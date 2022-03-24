@@ -45,19 +45,35 @@ exports.findPrice= async (req,res,next)=>{
 
     const id_prod = req.query.id_prod;
     const id_unite = req.query.id_unite;
+
+  
     const data = await Detailprod.findPrice(id_prod,id_unite);
     
     const results = data[0];
-    
-      if (data[0].length !== 0){
-         
-        res.send(results);
+   
+    price=""+results[0].prixProd;
+    //price=pr+"DT"
 
-        }
-        else if(data[0].length == 0) { 
-            res.json({succes: false,
-                message: 'prod introuvable',
-                   });
-        }  
+    
+
+
+    try {
+        
+        if (data[0].length !== 0){
+         
+            res.status(200).send(price);
+    
+            }
+            else if(data[0].length == 0) { 
+                res.status(200).json({succes: false,
+                    message: 'prod introuvable',
+                       });
+            } 
+
+    } catch (error) {
+        
+    }
+    
+      
 }
 

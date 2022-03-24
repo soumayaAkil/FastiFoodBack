@@ -46,6 +46,12 @@ module.exports = class Produit{
      
     }
 
+    static findNameRestByIdRest(id_restau){
+        return db.execute (
+            'Select designation from restaurant WHERE id_restau = ?',[id_restau]);
+     
+    }
+
     static fetchImage(id_prod){
         return db.execute (
             'SELECT imageProd FROM produit WHERE id_prod = ?',[id_prod]);
@@ -57,6 +63,14 @@ module.exports = class Produit{
             'SELECT MAX(id_prod) as id_prod FROM produit');
      
     }
+    static fetchProd(id_prod){
+ 
+        return db.execute (
+            'SELECT nomProd FROM produit WHERE id_prod = ?',[id_prod]);
+     
+    }
+
+    
 
     static postProd(nomProd,id_restau,id_cat){
  
@@ -65,8 +79,12 @@ module.exports = class Produit{
        
        
     }
-
+    static postImageProd(imageProd,id_prod){
  
+        return db.execute('UPDATE produit SET imageProd = ? WHERE id_prod = ?',[imageProd,id_prod]);
+       
+       
+    }
 
    
 };

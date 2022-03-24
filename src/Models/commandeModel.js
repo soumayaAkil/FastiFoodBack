@@ -18,7 +18,13 @@ module.exports = class Commande {
     } 
     static findbyidRestau (id_restau){
         return db.execute('SELECT * FROM commande where id_restau=?' ,[id_restau]);
-    } 
+    }
+    static findbyidRestauAccept (id_restau,reponse){
+        return db.execute('SELECT * FROM commande where id_restau=? and reponse = ?' ,[id_restau,reponse]);
+    }  
+    static findbyidRestauRefuse (id_restau,reponse){
+        return db.execute('SELECT * FROM commande where id_restau=? and reponse = ?' ,[id_restau,reponse]);
+    }  
     static findbyidCom (id_com){
         return db.execute('SELECT * FROM commande where id_com=?' ,[id_com]);
     } 

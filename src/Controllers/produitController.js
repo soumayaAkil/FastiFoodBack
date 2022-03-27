@@ -140,7 +140,7 @@ exports.Images= async (req,res,next)=>{
 
 
 
-// insert an question
+// insert
 exports.post = async (req,res,next)=>{
 
     let nomProd= req.query.nomProd;

@@ -58,3 +58,27 @@ exports.Images= async (req,res,next)=>{
                    });
         }  
 }
+
+// insert
+exports.post = async (req,res,next)=>{
+    try{
+        
+    let prix_promo= req.query.prix_promo;
+    let id_restau= req.query.id_restau;
+   
+
+        const rest=await Promo.postPromo(prix_promo,id_restau);
+        console.log('ahlan')
+
+        res.status(200).json("Ajouter avec succée");
+    }catch{
+        res.status(500).json('false');
+    }
+    }
+
+
+
+           
+ 
+    
+    

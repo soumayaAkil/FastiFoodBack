@@ -14,6 +14,13 @@ module.exports = class Promotion{
             "Select * from promotion ");
      
     }
+    static postPromo(prix_promo,id_restau){
+ 
+        return db.execute('INSERT INTO promotion (id_restau,prix_promo) VALUES (?,?)',
+        [id_restau,prix_promo] );
+       
+       
+    }
     static fetchImage(id_promo){
         return db.execute (
             'SELECT photo_promo FROM promotion WHERE id_promo = ?',[id_promo]);

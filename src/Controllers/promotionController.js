@@ -68,7 +68,7 @@ exports.post = async (req,res,next)=>{
    
 
         const rest=await Promo.postPromo(prix_promo,id_restau);
-        console.log('ahlan')
+      
 
         res.status(200).json("Ajouter avec succée");
     }catch{

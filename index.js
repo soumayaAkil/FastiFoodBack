@@ -92,9 +92,13 @@ storage = multer.diskStorage({
   });
 
 
-
+const upload = multer({
+  destination: './images/',
+})
 
 app.post("/upload",multer({  storage: storage }).single('upload'),imageController.postPicture);
+app.post("/uploadLogo",multer({  storage: storage }).single('file'),imageController.postLogo);
+//app.post("/uploadLogo",upload.single('file'),imageController.postLogo);
 
 app.get('/images/:upload', function (req, res){
   file = req.params.upload;

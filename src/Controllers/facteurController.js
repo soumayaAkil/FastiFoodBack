@@ -3,9 +3,13 @@ const Facteur= require("../Models/facteurModel")
 
 exports.findAllbyIdClient = async(req, res, next) => {
     try {
-    
+      //loadstatus(id_fact,stat);
       let [Response] = await  Facteur.findbyidClient(req.query.id_client);
-   
+      for(let k=0;k<Response.length;k++)
+      {
+      id_fact=Response[k].id_fact;
+      console.log(id_fact)
+    }
       res.status(200).json(Response);
     } catch (err) {
       if (!err.statusCode) {

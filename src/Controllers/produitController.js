@@ -141,6 +141,7 @@ exports.Images= async (req,res,next)=>{
 
 
 // insert an prod
+
 exports.post = async (req,res,next)=>{
 
     let nomProd= req.query.nomProd;

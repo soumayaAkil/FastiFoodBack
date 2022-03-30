@@ -15,6 +15,7 @@ const restauRoute = require("./src/Routes/restaurantRoute");
 const uniteRoute = require("./src/Routes/uniteRoute");
 const factRoute = require("./src/Routes/facteurRoute");
 const cour = require("./src/Routes/coursierRoute");
+const promoRoute =  require("./src/Routes/promotionRoute");
 
 const imageController = require("./src/Controllers/imageController")
 
@@ -41,7 +42,7 @@ app.use(bodyParser.json())
 // define a root route
 
 app.use(express.json())
-app.use(cors({origin:"http://localhost:8081"}));
+app.use(cors({origin:"http://localhost:8080"}));
 
 app.use('/categoie',categorieRoute);
 app.use('/produit',produitRoute);
@@ -57,6 +58,7 @@ app.use("/facture",factRoutee);
 app.use("/commandesR",comR);
 app.use("/commandesP",comP);
 app.use("/coursier",cour);
+app.use("/promotion",promoRoute);
 
 app.use('/uploads',express.static('images'));
 

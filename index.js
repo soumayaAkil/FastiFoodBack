@@ -18,6 +18,7 @@ const cour = require("./src/Routes/coursierRoute");
 const promoRoute =  require("./src/Routes/promotionRoute");
 
 const imageController = require("./src/Controllers/imageController")
+const ReclamationRoute = require("./src/Routes/ReclamationRoute");
 
 var multer, storage, path, crypto;
 multer = require('multer')
@@ -59,6 +60,7 @@ app.use("/commandesR",comR);
 app.use("/commandesP",comP);
 app.use("/coursier",cour);
 app.use("/promotion",promoRoute);
+app.use("/Reclamations",ReclamationRoute);
 
 app.use('/uploads',express.static('images'));
 

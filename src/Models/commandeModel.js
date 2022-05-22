@@ -40,6 +40,8 @@ module.exports = class Commande {
         [commande.somme_com,reponse,commande.id_restau,commande.id_fact,commande.id_com]);
     } 
    
+    
+   
 
 
 

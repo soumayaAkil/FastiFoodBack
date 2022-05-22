@@ -42,7 +42,7 @@ app.use(bodyParser.json())
 // define a root route
 
 app.use(express.json())
-app.use(cors({origin:"http://localhost:8080"}));
+app.use(cors({origin:"http://localhost:8081"}));
 
 app.use('/categoie',categorieRoute);
 app.use('/produit',produitRoute);
@@ -106,6 +106,10 @@ app.get('/images/:upload', function (req, res){
   res.end(img, 'binary');
 
 });
+
+app.post("/uploadPromo",multer({  storage: storage }).single('upload'),imageController.postPicturePromo);
+
+
 
  
 

@@ -26,5 +26,16 @@ module.exports = class Promotion{
             'SELECT photo_promo FROM promotion WHERE id_promo = ?',[id_promo]);
      
     }
+    static getid(){
+        return db.execute (
+            'SELECT MAX(id_promo) as id_promo FROM promotion');
+     
+    }
+    static postImagePromo(photo_promo,id_promo){
+ 
+        return db.execute('UPDATE promotion SET photo_promo = ? WHERE id_promo = ?',[photo_promo,id_promo]);
+       
+       
+    }
 
 }

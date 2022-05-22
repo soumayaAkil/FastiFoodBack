@@ -18,6 +18,27 @@ exports.findAll= async (req,res,next)=>{
    }
   }
 
+  //get all products
+exports.findRestau= async (req,res,next)=>{
+    
+  let id_restau=req.params.id_restau;
+  const ress= await Restaurant.getRestauByid(id_restau);
+  rows = ress[0];
+  if(rows.length !== 0)
+  {
+      res.send(rows);
+
+  } else 
+   {
+      res.json({
+          succes: false,
+          produit: 'aucun restau',
+      });
+   }
+  }
+
+
+
   // insert restau
 exports.post = async (req,res,next)=>{
 

@@ -17,6 +17,12 @@ module.exports = class Produit{
             'Select * from restaurant');
      
     }
+
+    static getRestauByid(id_restau){
+        return db.execute (
+            'Select * from restaurant where id_restau = ?',[id_restau]);
+     
+    }
     
     static postRestau(designation){
  

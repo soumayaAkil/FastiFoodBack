@@ -38,7 +38,24 @@ exports.findProdByIdCat= async (req,res,next)=>{
         });
      }
     }
+  //get all products by id restau 
 
+  exports.findProdByIdRestau= async (req,res,next)=>{
+    let id_restau=req.params.id_restau;
+    const ress= await Produit.findProdByRestau(id_restau);
+    rows = ress[0];
+    if(rows.length !== 0)
+    {
+        res.send(rows);
+
+    } else 
+     {
+        res.json({
+            succes: false,
+            produit: 'aucun produit',
+        });
+     }
+    }
 
 // find all products where thier cat was repa
 

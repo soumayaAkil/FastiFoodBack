@@ -1,5 +1,6 @@
 const ProdComm= require("../Models/produitscomModel")
 //Afficher liste des ProduitsCommandes
+
 exports.findAlll = function(req, res) {
     ProdComm.findAllproduitscommandes(req.params.id_com,function(err, prodcmd) {
       if (err){

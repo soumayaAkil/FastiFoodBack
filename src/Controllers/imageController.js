@@ -1,12 +1,16 @@
 
 const Produit= require("../Models/produitModel")
 const Promo= require("../Models/promotionModel")
+const Restaurant= require("../Models/restaurantModel")
+
 
 var multer, storage, path, crypto;
 multer = require('multer')
 path = require('path');
 crypto = require('crypto')
 
+
+// for productt
 
 exports.postPicture =async (req, res)=> {
       
@@ -46,4 +50,25 @@ exports.postPicture =async (req, res)=> {
       }
   
 
+// for resatuuu
 
+exports.postLogo =async (req, res)=> {
+console.log("filee", req.file)
+      
+  res.redirect("/images/" + req.file.filename);
+ 
+ // console.log("second",req.file.originalname);
+ //console.log("resssss",res.status(200))
+ const ress= await Restaurant.getid();
+ rows = ress[0];
+ id_restau=rows[0].id_restau;
+
+
+ 
+logo=req.file.filename;
+
+ const restt= await Restaurant.postImageRestau(logo,id_restau);
+
+  return res.status(200);
+  
+}

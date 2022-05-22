@@ -1,44 +1,49 @@
-var dbConn=require('../../Config/db');
 
 
- var Restaurant=function(restaurant){
-     this.id_restau=restaurant.id_restau;
-     this.designation=restaurant.designation;
-     this.logo=restaurant.logo;
-
- };
+ var db=require('../../Config/database');
 
 
-//Gett all data
-Restaurant.findAll=function(result){
-    dbConn.query("Select * from restaurant", function(err,res){
-        if(err){
-            console.log("error in fetching data :", err)
-            result(err,null);
-        }else{
+module.exports = class Produit{
+    constructor(id_restau,designation,logo){
+        this.id_restau=id_restau;
+        this.designation=designation;
+        this.logo=logo;
+   
+      
+    }
 
-            result( res);
-        }
-    })
+    static fetchAll(){
+        return db.execute (
+            'Select * from restaurant');
+     
+    }
 
-};
-//find restau
-Restaurant.find=function(id_restau,result){
-    dbConn.query("Select * from restaurant WHERE id_restau = ?", [id_restau], 
-    function(err,res){
-        if(err){
-            console.log("error in fetching data :", err)
-            result(err,null);
-        }else{
-           
-            result( res);
-        }
-    })
-
-};
-
-
-
-
-module.exports=Restaurant;
+    static getRestauByid(id_restau){
+        return db.execute (
+            'Select * from restaurant where id_restau = ?',[id_restau]);
+     
+    }
+    
+    static postRestau(designation){
  
+        return db.execute('INSERT INTO restaurant (designation) VALUES (?)',
+        [designation] );
+       
+       
+    }
+
+    
+    static getid(){
+        return db.execute (
+            'SELECT MAX(id_restau) as id_restau FROM restaurant');
+     
+    }
+
+    static postImageRestau(logo,id_restau){
+ 
+        return db.execute('UPDATE restaurant SET logo = ? WHERE id_restau = ?',[logo,id_restau]);
+       
+       
+    }
+}
+

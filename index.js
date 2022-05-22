@@ -18,6 +18,7 @@ const cour = require("./src/Routes/coursierRoute");
 const promoRoute =  require("./src/Routes/promotionRoute");
 
 const imageController = require("./src/Controllers/imageController")
+const ReclamationRoute = require("./src/Routes/ReclamationRoute");
 
 var multer, storage, path, crypto;
 multer = require('multer')
@@ -59,6 +60,7 @@ app.use("/commandesR",comR);
 app.use("/commandesP",comP);
 app.use("/coursier",cour);
 app.use("/promotion",promoRoute);
+app.use("/Reclamations",ReclamationRoute);
 
 app.use('/uploads',express.static('images'));
 
@@ -94,9 +96,13 @@ storage = multer.diskStorage({
   });
 
 
-
+const upload = multer({
+  destination: './images/',
+})
 
 app.post("/upload",multer({  storage: storage }).single('upload'),imageController.postPicture);
+app.post("/uploadLogo",multer({  storage: storage }).single('file'),imageController.postLogo);
+//app.post("/uploadLogo",upload.single('file'),imageController.postLogo);
 
 app.get('/images/:upload', function (req, res){
   file = req.params.upload;

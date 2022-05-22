@@ -26,7 +26,7 @@ exports.findProdByIdCat= async (req,res,next)=>{
     id_cat=req.query.id_cat;
     console.log("gggggggggg")
     console.log(id_cat)
-    const ress= await Produit.findProdByIdCat(2);
+    const ress= await Produit.findProdByIdCat(id_cat);
     rows = ress[0];
     if(rows.length !== 0)
     {

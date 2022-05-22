@@ -12,18 +12,28 @@ exports.findAlll = function(req, res) {
     });
   };
 
-  exports.findAllA = function(req, res) {
+  exports.findAllA = async (req, res) => {
     console.log(req.query.id_com);
-    ProdComm.findAllproduitscomA(req.query.id_com,function(err, prodcmd) {
-     
-      if (err){
-        res.send(err);
-      }else{
-       
-        res.send(prodcmd);
+    console.log("ggggg")
+    const ress= await ProdComm.findAllproduitscomA(req.query.id_com) ;
+   
+    rows = ress[0];
+    console.log(rows);
+    if(rows.length !== 0)
+    {
+        //console.log(rows)
+        res.status(200).json(rows);
+  
+    } else 
+     {
+        res.json({
+            succes: false,
+            detCom: 'introuvable',
+        });
+     }
+   
       }  
-    });
-  };
+
 //Detailles par idcommande
 exports.findAll = async (req,res,next)=>{
 

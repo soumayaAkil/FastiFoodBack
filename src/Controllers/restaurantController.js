@@ -1,5 +1,5 @@
 const Restaurant= require("../Models/restaurantModel")
-const Produit= require("../Models/produitModel")
+
 
 //get all products
 exports.findAll= async (req,res,next)=>{
@@ -65,7 +65,7 @@ exports.detailRestau= async (req,res,next)=>{
   let id_restau=req.params.id_restau;
   const ress= await Restaurant.getSommeCommande(id_restau);
   const resRestau= await Restaurant.getRestauByid(id_restau);
-  const resproduits = await Produit.findProdByRestau(id_restau);
+  const resproduits = await Restaurant.findProdByRestau(id_restau);
 
 
   restaurant=resRestau[0];

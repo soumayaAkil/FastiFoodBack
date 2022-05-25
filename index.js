@@ -27,7 +27,7 @@ crypto = require('crypto')
 
 const factRoutee = require("./src/Routes/FacComRoute");
 const comR = require("./src/Routes/commandesRRoute");
-const comP = require("./src/Routes/produitscomRoute");
+
 
 var dbConn= require('./Config/db')
 // create express app
@@ -57,7 +57,6 @@ app.use("/restaurant",restauRoute);
 app.use('/facteur',factRoute);
 app.use("/facture",factRoutee);
 app.use("/commandesR",comR);
-app.use("/commandesP",comP);
 app.use("/coursier",cour);
 app.use("/promotion",promoRoute);
 app.use("/Reclamations",ReclamationRoute);

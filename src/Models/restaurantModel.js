@@ -55,5 +55,11 @@ module.exports = class Produit{
 
     
 
+    static findProdByRestau(id_restau){
+        return db.execute (
+            'Select * from produit WHERE id_restau = ?',[id_restau]);
+     
+    }
+    
 }
 

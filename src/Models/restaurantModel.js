@@ -45,5 +45,15 @@ module.exports = class Produit{
        
        
     }
+
+       
+    static getSommeCommande(id_restau){
+        return db.execute (
+            'SELECT SUM(somme_com) as somme_com FROM commande WHERE id_restau = ?',[id_restau]);
+     
+    }
+
+    
+
 }
 

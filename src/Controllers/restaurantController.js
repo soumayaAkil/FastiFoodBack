@@ -1,4 +1,5 @@
 const Restaurant= require("../Models/restaurantModel")
+const Produit= require("../Models/produitModel")
 
 //get all products
 exports.findAll= async (req,res,next)=>{
@@ -56,3 +57,46 @@ exports.post = async (req,res,next)=>{
       res.send("Ajouter avec succée");
 
   }
+
+
+    //get detail restau
+exports.detailRestau= async (req,res,next)=>{
+    
+  let id_restau=req.params.id_restau;
+  const ress= await Restaurant.getSommeCommande(id_restau);
+  const resRestau= await Restaurant.getRestauByid(id_restau);
+  const resproduits = await Produit.findProdByRestau(id_restau);
+
+
+  restaurant=resRestau[0];
+  produits=resproduits[0];
+
+
+  somme_com = ress[0][0].somme_com;
+  let pourcentage=somme_com*0.15;
+
+          detailRestaurant=
+          {
+            id_restau:restaurant[0].id_restau,
+            designation:restaurant[0].designation,
+            logo:restaurant[0].logo,
+            recette:somme_com,
+            pourcentage:pourcentage,
+            produit:produits
+
+          }
+
+
+  if( ress[0].length !== 0)
+  {
+      res.send(detailRestaurant);
+
+  } else 
+   {
+      res.json({
+          succes: false,
+          produit: 'aucun restau',
+      });
+   }
+  }
+

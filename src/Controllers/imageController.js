@@ -1,5 +1,4 @@
 
-const Produit= require("../Models/produitModel")
 const Promo= require("../Models/promotionModel")
 const Restaurant= require("../Models/restaurantModel")
 

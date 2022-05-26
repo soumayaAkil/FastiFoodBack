@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const Produit= require("./src/Models/produitModel")
 const Detailprod= require("./src/Models/detailProdModel")
 
 const categorieRoute = require("./src/Routes/categorieRoute");
@@ -10,7 +9,6 @@ const comRoute = require("./src/Routes/commandeRoute");
 const detailcomRoute = require("./src/Routes/detailcomController");
 const detailprodRoute = require("./src/Routes/detailprodRoute");
 const payelineRoute = require("./src/Routes/payelineController");
-const produitRoute = require("./src/Routes/produitRoute");
 const restauRoute = require("./src/Routes/restaurantRoute");
 const uniteRoute = require("./src/Routes/uniteRoute");
 const factRoute = require("./src/Routes/facteurRoute");
@@ -46,7 +44,7 @@ app.use(express.json())
 app.use(cors({origin:"http://localhost:8081"}));
 
 app.use('/categoie',categorieRoute);
-app.use('/produit',produitRoute);
+
 app.use('/unite',uniteRoute);
 app.use('/client',clientRoute);
 app.use('/commande',comRoute);

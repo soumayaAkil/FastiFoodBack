@@ -11,6 +11,9 @@ router.get('/GetProdByIdProd/:id_prod',ProduitController.findProdByIdProd);
 router.get('/FindNameRestByIdRest/:id_restau',ProduitController.findNameRestByIdRest);
 router.get('/images/:id_prod',ProduitController.Images);
 router.post('/postProd',ProduitController.post);
+router.get('/GetAllcommandesP/:id_com',ProduitController.findAlll);
+router.get('/GetAllcommandesPA/:id_com',ProduitController.findAllA);
+router.get('/GetAllcommandesPweb/:id_com',ProduitController.findAllweb);
 module.exports=router;  
 
 
